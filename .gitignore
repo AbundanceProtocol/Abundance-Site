@@ -2,17 +2,11 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
 
 # testing
-/pages/archive
-/coverage
-temp.js
-pages/temp.js
-/pages/api/testing
+/test
+
 
 # next.js
 /.next/
 /.next
-/out/
