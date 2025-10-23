@@ -14,7 +14,7 @@ export default function Home() {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 mb-8 leading-tight"
           style={{ textAlign: 'center' }}
         >
-          LET'S BUILD THE POST-SCARCITY ECONOMY
+          LET'S BUILD THE POST-SCARCITY ECONOMYs
         </h1>
         <div 
           className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-600"
