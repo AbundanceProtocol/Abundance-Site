@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: "The New Economic Revolution | A new model for the digital economy",
+  title: "The New Economic Revolution | A business model for the digital age",
   description: 'We’re building the business model for the Digital Economy — a model designed for networks and abundance',
 }
 
