@@ -215,7 +215,7 @@ export default function Home() {
               <div className="flex-1 w-full">
                 {/* Main Text */}
                 <h3 className="text-gray-900 text-lg md:text-2xl font-semibold mb-3 md:mb-4 text-center md:text-left">
-                  System Alert: Your economy is out of data
+                  System Alert: Your economy is out of date
                 </h3>
                 <p className="text-gray-700 text-base md:text-lg mb-4 md:mb-6 text-left flex items-start justify-start gap-2">
                   <FaRegClock color="#333333" className="text-gray-600 flex-shrink-0 mt-1" />
