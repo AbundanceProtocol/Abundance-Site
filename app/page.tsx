@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { FaRegClock } from 'react-icons/fa'
 import { FaSkullCrossbones, FaRegLightbulb } from 'react-icons/fa6'
 import { IoWarning } from 'react-icons/io5'
+import { SiSubstack } from 'react-icons/si'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -166,7 +167,34 @@ export default function Home() {
           <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           Our current business models were designed for factories and scarcity — not for networks and abundance. We’re developing a new model built for the Digital Age
           </p>
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-4 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          Join the <strong><em>New Economic Revolution</em></strong>
+          </p>
         </div>
+
+        <div className="max-w-md mx-auto px-4 md:px-6 text-center mb-6">
+          <form 
+            action="https://abundances.substack.com/api/v1/free" 
+            method="post"
+            className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
+          >
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Type your email..." 
+              required
+              className="flex-1 px-4 py-3 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+            />
+            <button 
+              type="submit"
+              className="px-6 py-3 bg-green-800 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
+            >
+              <SiSubstack className="w-4 h-4" />
+              Join
+            </button>
+          </form>
+        </div>
+
 
         {/* macOS Restart Dialog Box */}
         <div className="mt-12 relative animate-fade-in-up px-4" style={{ animationDelay: '0.4s' }}>
@@ -988,8 +1016,9 @@ export default function Home() {
             />
             <button 
               type="submit"
-              className="px-6 py-3 bg-green-800 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap"
+              className="px-6 py-3 bg-green-800 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
             >
+              <SiSubstack className="w-4 h-4" />
               Join
             </button>
           </form>
