@@ -1,275 +1,1010 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import { FaRegClock } from 'react-icons/fa'
+import { FaSkullCrossbones, FaRegLightbulb } from 'react-icons/fa6'
+import { IoWarning } from 'react-icons/io5'
+
 export default function Home() {
+  const [scrollY, setScrollY] = useState(0)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const featuresRef = useRef<HTMLDivElement>(null)
+  const cardsContainerRef = useRef<HTMLDivElement>(null)
+  const section2Ref = useRef<HTMLDivElement>(null)
+  const section6Ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+      observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  const scrollLeft = () => {
+    if (cardsContainerRef.current) {
+      const scrollAmount = 320 // Card width (w-80) + gap
+      cardsContainerRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+    }
+  }
+
+  const scrollRight = () => {
+    if (cardsContainerRef.current) {
+      const scrollAmount = 320 // Card width (w-80) + gap
+      cardsContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+  }
+
+  const scrollToSection2 = () => {
+    if (section2Ref.current) {
+      section2Ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
+  const scrollToSection6 = () => {
+    if (section6Ref.current) {
+      section6Ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
-    <div className="min-h-screen" style={{ textAlign: 'center' }}>
-      {/* SECTION 1: HERO */}
-      <section className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight">
-            LET'S BUILD THE POST-SCARCITY ECONOMY
+    <div className="min-h-screen bg-white relative">
+      {/* Fixed Background Image */}
+      <div className="fixed inset-0 z-0">
+        <Image 
+          src="/images/future.png"
+          alt="Future background"
+          fill
+          className="object-cover opacity-20"
+          priority
+        />
+      </div>
+      
+      {/* Content wrapper with higher z-index */}
+      <div className="relative z-10">
+      <style jsx global>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+
+        @keyframes pulse-glow {
+          0%, 100% {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+          }
+          50% {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-on-scroll {
+          opacity: 0;
+        }
+
+        .float-animation {
+          animation: float 4s ease-in-out infinite;
+        }
+
+        .pulse-glow {
+          animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+
+      {/* Hero Section */}
+      <section 
+        ref={heroRef}
+        className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-20"  style={{ backdropFilter: 'blur(6px)', backgroundColor: '#001100dd' }}
+      >
+        {/* Tinted Blur Overlay */}
+        <div className="absolute" />
+        
+        <div className="relative z-10 text-center px-6 max-w-5xl">
+          {/* Eyebrow label */}
+          <div className="animate-fade-in-up mb-6">
+            <span className="text-green-300 text-xl md:text-2xl font-semibold tracking-wide">
+              THE ABUNDANCE ECONOMY
+            </span>
+          </div>
+          
+          {/* Main headline */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 tracking-tight animate-fade-in-up text-white leading-[1.05]" style={{ animationDelay: '0.1s' }}>
+            The Digital Economy
+            <br />
+            <span className="text-3xl md:text-4xl lg:text-5xl">can't run on Industrial Age thinking</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-            We're building the foundation to an economy where value creation aligns with profit
+          
+          {/* Description */}
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          Our current business models were designed for factories and scarcity — not for networks and abundance. We’re developing a new model built for the Digital Age
           </p>
-          <button className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-12 py-6 rounded-lg text-xl font-semibold hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-xl">
-            JOIN THE MOVEMENT
-          </button>
         </div>
-      </section>
 
-      {/* SECTION 2: THE PROBLEM */}
-      <section className="py-20 bg-white" style={{ textAlign: 'center' }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">
-            Lorem Ipsum Dolor
-          </h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 text-lg text-gray-600">
-              <p>
-                <strong>Lorem ipsum dolor</strong> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-              <p>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-              <p>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              </p>
-            </div>
-            <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
-              <div className="text-6xl font-bold text-blue-600 mb-4">123M</div>
-              <p className="text-xl text-gray-800 font-semibold">Lorem ipsum dolor</p>
-              <p className="text-gray-600 mt-2">Sed ut perspiciatis unde omnis</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        {/* macOS Restart Dialog Box */}
+        <div className="mt-12 relative animate-fade-in-up px-4" style={{ animationDelay: '0.4s' }}>
+          <div className="bg-white/95 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl p-5 md:p-10 w-full max-w-[750px] mx-auto float-animation border-2 border-gray-800/20">
+            <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">
+              {/* Warning Icon */}
+              <div className="flex-shrink-0 mx-auto md:mx-0">
+                <svg className="w-16 h-16 md:w-20 md:h-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Yellow triangle background with rounded corners */}
+                  <path d="M12 2L2 20h20L12 2z" fill="#FACC15" stroke="#FACC15" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/>
+                  {/* Black exclamation mark */}
+                  <path d="M12 8v5" stroke="black" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="12" cy="16" r="1" fill="black"/>
+                </svg>
+              </div>
 
-      {/* SECTION 3: THE VISION */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-            Sed Ut Perspiciatis
-          </h2>
-          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
-            totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200 text-center">
-              <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Lorem Ipsum</h3>
-              <p className="text-gray-600">Dolor sit amet consectetur adipiscing elit</p>
-            </div>
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200 text-center">
-              <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <div className="w-8 h-8 bg-indigo-500 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Sed Do Eiusmod</h3>
-              <p className="text-gray-600">Tempor incididunt ut labore et dolore</p>
-            </div>
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200 text-center">
-              <div className="w-16 h-16 bg-purple-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <div className="w-8 h-8 bg-purple-500 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Ut Enim Ad</h3>
-              <p className="text-gray-600">Minim veniam quis nostrud exercitation</p>
-            </div>
-          </div>
-        </div>
-      </section>
+              {/* Dialog Content */}
+              <div className="flex-1 w-full">
+                {/* Main Text */}
+                <h3 className="text-gray-900 text-lg md:text-2xl font-semibold mb-3 md:mb-4 text-center md:text-left">
+                  System Alert: Your economy is out of data
+                </h3>
+                <p className="text-gray-700 text-base md:text-lg mb-4 md:mb-6 text-left flex items-start justify-start gap-2">
+                  <FaRegClock color="#333333" className="text-gray-600 flex-shrink-0 mt-1" />
+                  <span>Last major upgrade: <strong>18th century</strong></span>
+                </p>
+                <p className="text-gray-700 text-base md:text-lg mb-4 md:mb-6 text-left flex items-start justify-start gap-2">
+                  <FaSkullCrossbones color="#880000" className="text-gray-600 flex-shrink-0 mt-1" />
+                  <span>Running social media, AI, and other Digital Age processes may cause <strong>system failure</strong></span>
+                </p>
+                <p className="text-gray-700 text-base md:text-lg mb-4 md:mb-6 text-left flex items-start justify-start gap-2">
+                  <FaRegLightbulb color="#996600" className="text-orange-400 flex-shrink-0 mt-1" />
+                  <span><strong>New business model is available</strong></span>
+                </p>
+                {/* Checkbox */}
+                {/* <label className="flex items-start md:items-center gap-2 md:gap-3 mb-6 md:mb-8 cursor-pointer group">
+                  <div className="w-4 h-4 md:w-5 md:h-5 border-2 border-gray-400 rounded flex items-center justify-center group-hover:border-gray-500 transition-colors flex-shrink-0 mt-0.5 md:mt-0">
+                    <div className="w-2 h-2 bg-gray-400 rounded-sm opacity-0 group-hover:opacity-50"></div>
+                  </div>
+                  <span className="text-gray-900 text-sm md:text-base">
+                    Adipiscing elit sed do eiusmod tempor
+                  </span>
+                </label> */}
 
-      {/* SECTION 4: THE MOVEMENT */}
-      <section className="py-20 bg-slate-900 text-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            Excepteur Sint Occaecat
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-blue-400 mb-4">25K+</div>
-              <p className="text-xl text-gray-300">Lorem Ipsum</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-indigo-400 mb-4">75</div>
-              <p className="text-xl text-gray-300">Dolor Sit Amet</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-purple-400 mb-4">$1M+</div>
-              <p className="text-xl text-gray-300">Consectetur Adipiscing</p>
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-gray-800 rounded-xl p-8 text-center border border-gray-700">
-              <p className="text-lg italic mb-6 text-gray-300">
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-              </p>
-              <div className="flex items-center justify-center">
-                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-white font-bold">JD</span>
-                </div>
-                <div>
-                  <p className="font-semibold">John Doe</p>
-                  <p className="text-gray-400">Lorem Ipsum</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-gray-800 rounded-xl p-8 text-center border border-gray-700">
-              <p className="text-lg italic mb-6 text-gray-300">
-                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-              </p>
-              <div className="flex items-center justify-center">
-                <div className="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-white font-bold">JS</span>
-                </div>
-                <div>
-                  <p className="font-semibold">Jane Smith</p>
-                  <p className="text-gray-400">Dolor Sit Amet</p>
+                {/* Buttons */}
+                <div className="flex flex-col md:flex-row gap-2 md:gap-3 md:justify-end">
+                  <button onClick={scrollToSection2} className="w-full md:w-auto px-6 md:px-9 py-2.5 md:py-3 bg-white hover:bg-gray-100 text-gray-900 rounded-lg font-semibold border border-gray-400 shadow-md hover:shadow-lg transition-all duration-200 text-sm md:text-base">
+                    Read More...
+                  </button>
+                  <button onClick={scrollToSection6} className="w-full md:w-auto px-6 md:px-9 py-2.5 md:py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold border border-gray-400 shadow-md hover:shadow-lg transition-all duration-200 text-sm md:text-base">
+                    Upgrade Economy
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* <div className="absolute bottom-10 animate-bounce">
+          <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div> */}
       </section>
 
-      {/* SECTION 5: THE ACTION */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            Duis Aute Irure
-          </h2>
-          <p className="text-xl mb-12 leading-relaxed text-gray-200">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto border border-white/20">
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <input 
-                  type="text" 
-                  placeholder="Lorem Ipsum" 
-                  className="w-full px-6 py-4 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-                />
-                <input 
-                  type="email" 
-                  placeholder="Dolor Sit Amet" 
-                  className="w-full px-6 py-4 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-                />
-              </div>
-              <button 
-                type="submit"
-                className="w-full bg-white text-blue-600 px-8 py-4 rounded-lg text-xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                CONSECTETUR ADIPISCING
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 6: THE COMMUNITY */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-8">
-            Sed Ut Perspiciatis
-          </h2>
-          <p className="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
-            totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-blue-200">
-                <div className="w-10 h-10 bg-blue-500 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Lorem Ipsum</h3>
-              <p className="text-gray-600 mb-6">Dolor sit amet consectetur adipiscing elit</p>
-              <button className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                Sed Do Eiusmod
-              </button>
-            </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-indigo-200">
-                <div className="w-10 h-10 bg-indigo-500 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Tempor Incididunt</h3>
-              <p className="text-gray-600 mb-6">Ut labore et dolore magna aliqua</p>
-              <button className="bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 transition-colors font-medium">
-                Ut Enim Ad
-              </button>
-            </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-purple-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-purple-200">
-                <div className="w-10 h-10 bg-purple-500 rounded-full"></div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Minim Veniam</h3>
-              <p className="text-gray-600 mb-6">Quis nostrud exercitation ullamco</p>
-              <button className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors font-medium">
-                Laboris Nisi
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 7: FOOTER */}
-      <footer className="bg-slate-900 text-white py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Lorem Ipsum</h3>
-              <p className="text-gray-400 mb-6">
-                Dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Ut Enim Ad
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Minim Veniam
-                </a>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quis Nostrud</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Exercitation Ullamco</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Laboris Nisi</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Ut Aliquip</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Ex Ea Commodo</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Consequat Duis</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Aute Irure</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Dolor In</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Reprehenderit</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Voluptate Velit</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Esse Cillum</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>dolore@eu.fugiat</li>
-                <li>+1 (555) 123-4567</li>
-                <li>123 Lorem Ipsum St<br />Dolor Sit, CA 12345</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © 2024 Lorem Ipsum. All rights reserved.
+      {/* Comparison Grid */}
+      <section ref={section2Ref} className="py-12 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          {/* Header */}
+          <div className="text-center mb-12 md:mb-20 animate-on-scroll">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
+              Fixing a Broken System
+            </h2>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-[52.8rem] mx-auto px-2 mb-6">
+              Our Industrial Age business models break down in the digital economy
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Nulla Pariatur</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Excepteur Sint</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Occaecat Cupidatat</a>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-xl mx-auto px-2 mb-6">
+              They keep producing outcomes that harm the networks we all depend on
+            </p>
+            {/* Social Media with Image */}
+            <div className="flex flex-col md:flex-row md:items-start items-center justify-center gap-6 max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-2 mb-6">
+              <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
+                <Image 
+                  src="/images/Social-media.png" 
+                  alt="Social Media" 
+                  width={160} 
+                  height={160}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="text-center md:text-left flex-1 md:max-w-xl lg:max-w-2xl flex flex-col justify-center md:min-h-[160px]">
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-1">
+                  Social media
+                </p>
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
+                  The network wants relevant content for each user
+                </p>
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
+                  But the model sells <strong>attention</strong> — pushing outrage and addiction
+                </p>
+                {/* <p className="text-base md:text-lg lg:text-xl text-gray-600"></p>
+                  It pits us against each other and keeps us hooked
+                </p> */}
+              </div>
+            </div>
+            
+            {/* News Media with Image */}
+            <div className="flex flex-col md:flex-row md:items-start items-center justify-center gap-6 max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-2 mb-6">
+              <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
+                <Image 
+                  src="/images/News.png" 
+                  alt="News Media" 
+                  width={160} 
+                  height={160}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="text-center md:text-left flex-1 md:max-w-xl lg:max-w-2xl flex flex-col justify-center md:min-h-[160px]">
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-1">
+                  News media
+                </p>
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
+                  The network wants verified, shared facts
+                </p>
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
+                  But the model sells <strong>ratings</strong> — rewarding popularity, not truth
+                </p>
+                {/* <p className="text-base md:text-lg lg:text-xl text-gray-600">
+                  ...instead of informing us
+                </p> */}
+              </div>
+            </div>
+            
+            {/* AI with Image */}
+            <div className="flex flex-col md:flex-row md:items-start items-center justify-center gap-6 max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-2 mb-8">
+              <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
+                <Image 
+                  src="/images/ai.png" 
+                  alt="Artificial Intelligence" 
+                  width={160} 
+                  height={160}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="text-center md:text-left flex-1 md:max-w-xl lg:max-w-2xl flex flex-col justify-center md:min-h-[160px]">
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-1">
+                  Artificial Intelligence
+                </p>
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
+                  The network wants broad prosperity for all
+                </p>
+                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
+                  But the model sells <strong>usage</strong> — driving joblessness, not productivity
+                </p>
+                {/* <p className="text-base md:text-lg lg:text-xl text-gray-600">
+                  ...instead of making society more prosperous
+                </p> */}
+              </div>
+            </div>
+
+            {/* <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-xl mx-auto px-2 mb-4">
+              The models can't value the <strong>benefit to the network</strong>, they can only measure <strong>scarcity</strong> — views, clicks, subscriptions and likes
+            </p> */}
+ 
+            {/* <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-xl mx-auto px-2 mb-6">
+              What benefits individual companies often <strong>damages</strong> the shared networks we all rely on
+            </p> */}
+
+            <p className="text-lg md:text-2xl lg:text-3xl text-gray-600 max-w-xl mx-auto px-2 mb-4">
+              <strong>To fix the digital economy, we have to fix the incentives shaping it</strong>
+            </p>
+
+            {/* <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2">
+              But these models don't just underperform — they also spark crises across the system. As technology accelerates, these crises compound, threatening to spiral into societal collapse.
+            </p> */}
+          </div>
+
+        </div>
+      </section>
+
+      {/* Apple-style Dark Section */}
+      <section className="py-16 md:py-24 lg:py-32 relative overflow-hidden"  style={{ backdropFilter: 'blur(5px)', backgroundColor: '#001100cc' }}>
+        {/* Background Image with Blur */}
+        {/* <div className="absolute inset-0">
+          <Image 
+            src="/images/nodes.png"
+            alt="Network nodes background"
+            fill
+            className="object-cover opacity-50"
+            style={{ filter: 'blur(6px)' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-800/70 to-gray-900/70"></div>
+        </div> */}
+        
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+          {/* Header */}
+          <div className="mb-12 md:mb-16 lg:mb-20 animate-on-scroll">
+            <p className="text-lg md:text-2xl text-gray-100 mb-3 md:mb-4 font-medium tracking-wide">
+              Aligning incentives
+            </p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 md:mb-8 leading-tight">
+              A Network-first approach
+              {/* <br />
+              more places. */}
+            </h2>
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10">
+                The digital economy runs on <strong>networks</strong> — but our business models serve <strong>consumers (B2C)</strong> and <strong>businesses (B2B)</strong> instead
+              </p>
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10">
+                These models often benefit some participants at the expense of the network as a whole
+              </p>
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-extrabold">
+                To unlock the abundance of the Digital Age, we need a model that serves the network itself — so that companies are rewarded when the entire network thrives
+              </p>
+             {/* <br />
+             But our business models were never designed for networks. */}
+          </div>
+
+          {/* Content Grid - You can add content here */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {/* Example content cards - customize as needed */}
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Gallery */}
+      <section
+        ref={featuresRef}
+        className="py-16 md:py-32 bg-white"
+      >
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          {/* Header */}
+          <div className="mb-12 md:mb-16 animate-on-scroll">
+            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
+              {/* Text content on the left */}
+              <div className="flex-1">
+                <p className="text-lg md:text-2xl text-gray-600 mb-3 md:mb-4 font-semibold">Business-to-Network (B2N)</p>
+                <h2 className="font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+                  <span className="block text-3xl md:text-4xl lg:text-5xl">A Business Model</span>
+                  <span className="block text-4xl md:text-5xl lg:text-6xl">Designed for Networks</span>
+                </h2>
+                <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10">
+                  Instead of rewarding companies for extracting value from a network, B2N rewards them for improving the network</p>
+                <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10">
+                  In a <strong>Business-to-Network</strong> model the greater your impact on the network, the more you earn
+                </p>
+                <p className="text-base md:text-xl lg:text-2xl text-gray-900 leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10">
+                  Here's how the B2N model realigns incentives across the digital economy:
+                </p>
+              </div>
+              
+              {/* Image on the right */}
+              <div className="flex-shrink-0 w-full md:w-1/3 lg:w-2/5">
+                <Image 
+                  src="/images/network-04.png"
+                  alt="Network visualization"
+                  width={500}
+                  height={500}
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Scrollable Cards Container */}
+          <div className="relative">
+            <div ref={cardsContainerRef} className="flex gap-4 md:gap-6 overflow-x-auto pb-12 md:pb-8 scrollbar-hide snap-x snap-mandatory">
+              {/* Card 1 */}
+              <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll">
+                <div className="bg-white rounded-3xl border border-gray-900 overflow-hidden shadow-lg mb-4">
+                  {/* Header with icon */}
+                  <div className="bg-gray-200 px-4 py-3 flex items-center gap-3 border-b border-gray-900">
+                    <div className="hidden w-10 h-10 rounded-full border border-gray-900 overflow-hidden flex items-center justify-center bg-white">
+                      <Image 
+                        src="/images/Social-media.png"
+                        alt="Social Media"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <h3 className="text-base md:text-lg font-bold text-gray-900">
+                      Social Media
+                    </h3>
+                  </div>
+
+                  {/* Slider Content */}
+                  <div className="relative h-[460px]">
+                    <div className="absolute inset-0 flex flex-col">
+                      {/* Top Side - Current Economy */}
+                      <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
+                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Business</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Platforms sell attention. Algorithms optimize for engagement — even when it drives outrage, addiction, and polarization</p>
+                      </div>
+
+                      {/* Bottom Side - Abundance Economy */}
+                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Platforms earn by improving the quality and usefulness of content distribution. The better they serve the network’s interests, the more they profit.</p>
+                      </div>
+                    </div>
+
+                    {/* Slider Handle */}
+                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
+                      <div className="w-10 h-10 bg-white rounded-full border border-gray-900 flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                  Ullamco laboris nisi
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
+                  Ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit voluptate velit esse cillum dolore.
+                </p> */}
+              </div>
+
+              {/* Card 2 */}
+              <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll" style={{ animationDelay: '0.1s' }}>
+                <div className="bg-white rounded-3xl border border-gray-900 overflow-hidden shadow-lg mb-4">
+                  {/* Header with icon */}
+                  <div className="bg-gray-200 px-4 py-3 flex items-center gap-3 border-b border-gray-900">
+                    <div className="hidden w-10 h-10 rounded-full border border-gray-900 overflow-hidden flex items-center justify-center bg-white">
+                      <Image 
+                        src="/images/News.png"
+                        alt="News Media"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <h3 className="text-base md:text-lg font-bold text-gray-900">
+                      News Media
+                    </h3>
+                  </div>
+
+                  {/* Slider Content */}
+                  <div className="relative h-[460px]">
+                    <div className="absolute inset-0 flex flex-col">
+                      {/* Top Side - Current Economy */}
+                      <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
+                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">B2B or B2C</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Media profits from clicks, ratings, and audience retention. Incentives favor sensationalism and reinforcing bias</p>
+                      </div>
+
+                      {/* Bottom Side - Abundance Economy */}
+                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Media earns by providing accurate, balanced reporting that improves collective understanding. Reward is tied to network-wide informational value</p>
+                      </div>
+                    </div>
+
+                    {/* Slider Handle */}
+                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
+                      <div className="w-10 h-10 bg-white rounded-full border border-gray-900 flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                  Fugiat nulla pariatur
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
+                  Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p> */}
+              </div>
+
+              {/* Card 3 */}
+              <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll" style={{ animationDelay: '0.1s' }}>
+                <div className="bg-white rounded-3xl border border-gray-900 overflow-hidden shadow-lg mb-4">
+                  {/* Header with icon */}
+                  <div className="bg-gray-200 px-4 py-3 flex items-center gap-3 border-b border-gray-900">
+                    <div className="hidden w-10 h-10 rounded-full border border-gray-900 overflow-hidden flex items-center justify-center bg-white">
+                      <Image 
+                        src="/images/ai.png"
+                        alt="Artificial Intelligence"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <h3 className="text-base md:text-lg font-bold text-gray-900">
+                      Artificial Intelligence
+                    </h3>
+                  </div>
+
+                  {/* Slider Content */}
+                  <div className="relative h-[460px]">
+                    <div className="absolute inset-0 flex flex-col">
+                      {/* Top Side - Current Economy */}
+                      <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
+                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Consumer</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">A.I. profits from subscriptions and usage. Profit doesn’t depend on whether the technology benefits or harms society</p>
+                      </div>
+
+                      {/* Bottom Side - Abundance Economy */}
+                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">A.I. is open and contributive. Developers and data providers are rewarded based on measurable positive impact. Network well-being becomes the core performance metric</p>
+                      </div>
+                    </div>
+
+                    {/* Slider Handle */}
+                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
+                      <div className="w-10 h-10 bg-white rounded-full border border-gray-900 flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                  Fugiat nulla pariatur
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
+                  Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p> */}
+              </div>
+
+              {/* Card 4 */}
+              <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll" style={{ animationDelay: '0.2s' }}>
+                <div className="bg-white rounded-3xl border border-gray-900 overflow-hidden shadow-lg mb-4">
+                  {/* Header with icon */}
+                  <div className="bg-gray-200 px-4 py-3 flex items-center gap-3 border-b border-gray-900">
+                    <div className="hidden w-10 h-10 rounded-full border border-gray-900 overflow-hidden flex items-center justify-center bg-white">
+                      <span className="text-gray-900 text-lg">💡</span>
+                    </div>
+                    <h3 className="text-base md:text-lg font-bold text-gray-900">
+                      Innovation
+                    </h3>
+                  </div>
+
+                  {/* Slider Content */}
+                  <div className="relative h-[460px]">
+                    <div className="absolute inset-0 flex flex-col">
+                      {/* Top Side - Current Economy */}
+                      <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
+                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Business</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Innovators profit by owning and restricting access to ideas. Value comes from monopoly pricing — only those who can pay benefit</p>
+                      </div>
+
+                      {/* Bottom Side - Abundance Economy */}
+                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Innovators are rewarded based on the measured impact they create across the network. Everyone has access — maximizing adoption, benefit, and further innovation</p>
+                      </div>
+                    </div>
+
+                    {/* Slider Handle */}
+                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
+                      <div className="w-10 h-10 bg-white rounded-full border border-gray-900 flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                  Sed ut perspiciatis
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
+                  Unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque.
+                </p> */}
+              </div>
+
+              {/* Card 5 */}
+              <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll" style={{ animationDelay: '0.3s' }}>
+                <div className="bg-white rounded-3xl border border-gray-900 overflow-hidden shadow-lg mb-4">
+                  {/* Header with icon */}
+                  <div className="bg-gray-200 px-4 py-3 flex items-center gap-3 border-b border-gray-900">
+                    <div className="hidden w-10 h-10 rounded-full border border-gray-900 overflow-hidden flex items-center justify-center bg-white">
+                      <Image 
+                        src="/images/Social-media.png"
+                        alt="Social Media"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <h3 className="text-base md:text-lg font-bold text-gray-900">
+                      Science
+                    </h3>
+                  </div>
+
+                  {/* Slider Content */}
+                  <div className="relative h-[460px]">
+                    <div className="absolute inset-0 flex flex-col">
+                      {/* Top Side - Current Economy */}
+                      <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
+                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">None</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Fundamental research has no sustainable business model.
+                        Discoveries often can’t be sold or patented, so science depends on grants, donations, and short-term funding cycles — limiting progress</p>
+                      </div>
+
+                      {/* Bottom Side - Abundance Economy */}
+                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Research is rewarded based on benefit for the network — including downstream applications and derived innovations.
+                        Breakthroughs that advance the network generate ongoing reward for contributors.</p>
+                      </div>
+                    </div>
+
+                    {/* Slider Handle */}
+                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
+                      <div className="w-10 h-10 bg-white rounded-full border border-gray-900 flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                  Ipsa quae ab illo
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
+                  Inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam voluptatem.
+                </p> */}
+              </div>
+
+              {/* Card 6 */}
+              <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll" style={{ animationDelay: '0.3s' }}>
+                <div className="bg-white rounded-3xl border border-gray-900 overflow-hidden shadow-lg mb-4">
+                  {/* Header with icon */}
+                  <div className="bg-gray-200 px-4 py-3 flex items-center gap-3 border-b border-gray-900">
+                    <div className="hidden w-10 h-10 rounded-full border border-gray-900 overflow-hidden flex items-center justify-center bg-white">
+                      <Image 
+                        src="/images/Social-media.png"
+                        alt="Social Media"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <h3 className="text-base md:text-lg font-bold text-gray-900">
+                      Medical Research
+                    </h3>
+                  </div>
+
+                  {/* Slider Content */}
+                  <div className="relative h-[460px]">
+                    <div className="absolute inset-0 flex flex-col">
+                      {/* Top Side - Current Economy */}
+                      <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
+                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Consumer</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Research is profitable only when it leads to a marketable product. Value is captured through patents and monopoly pricing — which increases costs and limits access.</p>
+                      </div>
+
+                      {/* Bottom Side - Abundance Economy */}
+                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
+                        <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Research is rewarded based on health impact across the network, regardless of whether it produces a consumer product. Knowledge is open for others to build on, accelerating medical progress</p>
+                      </div>
+                    </div>
+
+                    {/* Slider Handle */}
+                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
+                      <div className="w-10 h-10 bg-white rounded-full border border-gray-900 flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                  Ipsa quae ab illo
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
+                  Inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam voluptatem.
+                </p> */}
+              </div>
+
+
+              {/* Card 5 */}
+                {/* <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll" style={{ animationDelay: '0.4s' }}> */}
+                {/* <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-4">
+                  <div className="bg-gradient-to-br from-indigo-400 to-purple-600 h-80 flex items-center justify-center">
+                    <div className="text-white text-7xl">✨</div>
+                  </div>
+                </div> */}
+                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                  Quia voluptas sit
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
+                  Aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                </p> */}
+              {/* </div> */}
+            </div>
+
+            {/* Navigation Arrows */}
+            <div className="flex gap-2 justify-center md:justify-start -mt-10 md:-mt-4">
+              <button onClick={scrollLeft} className="w-10 h-10 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button onClick={scrollRight} className="w-10 h-10 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
-      </footer>
+      </section>
+
+
+      {/* Transformation Sliders Section */}
+      <section className="py-12 md:py-24 relative overflow-hidden" style={{ backdropFilter: 'blur(2px)', backgroundColor: '#001100c6' }}>
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          {/* Header */}
+          <div className="text-center mb-2 md:mb-2 animate-on-scroll">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4 px-2">
+              How B2N Works
+            </h2>
+            <div className="flex justify-center">
+              <p className="text-base md:text-xl lg:text-2xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
+                Businesses work because they are unified economic units: they know what they value, control shared resources, and reward actions that strengthen them.
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <p className="text-base md:text-xl lg:text-2xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
+                B2N applies this same structure to networks
+              </p>
+            </div>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="max-w-3xl mx-auto px-0 md:px-6 mb-14 md:mb-11 animate-on-scroll">
+            <div className="bg-gray-900/30 backdrop-blur-md rounded-2xl overflow-hidden">
+              {/* Table Header */}
+              <div className="grid grid-cols-2 gap-px bg-gray-700/40">
+                <div className="bg-gray-900/10 backdrop-blur-sm px-3 md:px-6 py-3 md:py-4">
+                  <h3 className="text-lg md:text-2xl lg:text-3xl font-bold text-white">Business</h3>
+                </div>
+                <div className="bg-gray-900/10 backdrop-blur-sm px-3 md:px-6 py-3 md:py-4">
+                  <h3 className="text-lg md:text-2xl lg:text-3xl font-bold text-white">Network</h3>
+                </div>
+              </div>
+              
+              {/* Table Rows */}
+              <div className="grid grid-cols-2 gap-px bg-gray-700/20">
+                {/* Row 1 */}
+                <div className="bg-gray-900/30 backdrop-blur-sm px-3 md:px-6 py-4 md:py-6">
+                  <p className="text-sm md:text-lg lg:text-xl text-white">Optimizes for <strong>profit</strong></p>
+                </div>
+                <div className="bg-gray-900/30 backdrop-blur-sm px-3 md:px-6 py-4 md:py-6">
+                  <p className="text-sm md:text-lg lg:text-xl text-white">Optimizes for <strong>shared prosperity</strong></p>
+                </div>
+                
+                {/* Row 2 */}
+                <div className="bg-gray-900/30 backdrop-blur-sm px-3 md:px-6 py-4 md:py-6">
+                  <p className="text-sm md:text-lg lg:text-xl text-white">Has <strong>shared treasury</strong></p>
+                </div>
+                <div className="bg-gray-900/30 backdrop-blur-sm px-3 md:px-6 py-4 md:py-6">
+                  <p className="text-sm md:text-lg lg:text-xl text-white">Has <strong>shared currency</strong></p>
+                </div>
+                
+                {/* Row 3 */}
+                <div className="bg-gray-900/30 backdrop-blur-sm px-3 md:px-6 py-4 md:py-6">
+                  <p className="text-sm md:text-lg lg:text-xl text-white">Measures <strong>ROI</strong></p>
+                </div>
+                <div className="bg-gray-900/30 backdrop-blur-sm px-3 md:px-6 py-4 md:py-6">
+                  <p className="text-sm md:text-lg lg:text-xl text-white">Measures <strong>network impact</strong></p>
+                </div>
+                
+                {/* Row 4 */}
+                <div className="bg-gray-900/30 backdrop-blur-sm px-3 md:px-6 py-4 md:py-6">
+                  <p className="text-sm md:text-lg lg:text-xl text-white">Rewards <strong>contributors</strong></p>
+                </div>
+                <div className="bg-gray-900/30 backdrop-blur-sm px-3 md:px-6 py-4 md:py-6">
+                  <p className="text-sm md:text-lg lg:text-xl text-white">Rewards <strong>value creators</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div className="text-center mb-2 md:mb-2 animate-on-scroll">
+            <div className="flex justify-center">
+              <p className="text-base md:text-xl lg:text-2xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
+                In B2N, the more you improve the network, the more you earn
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <p className="text-base md:text-xl lg:text-2xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-2.5 text-center">
+                This aligns incentives across the entire digital economy — instead of benefiting a few at the expense of the whole
+              </p>
+            </div>
+          </div>
+
+
+
+
+          {/* B2N Content */}
+          <div className="max-w-4xl mx-auto px-4 md:px-6 mb-16 md:mb-24 animate-on-scroll">
+            {/* <p className="text-base md:text-xl lg:text-2xl text-gray-900 leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10">
+              To reward companies for improving the network, the network needs to be able to recognize and reward the value created for it.
+            </p>
+
+            <p className="text-base md:text-xl lg:text-2xl text-gray-900 leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-8">
+              A Business-to-Network economy does this by allowing the network to act as a cohesive economic entity — one that can:
+            </p> */}
+
+            {/* <div className="space-y-10 mb-10"> */}
+              
+              {/* CTA Section */}
+              <div className="mt-6 text-center">
+                <p className="text-base md:text-lg text-gray-100 mb-4">
+                  For more in-depth explanation of the B2N model see
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <a 
+                    href="https://book.abundance.id" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition-colors inline-block"
+                  >
+                    Abundance Economy book
+                  </a>
+                  <a 
+                    href="https://whitepaper.abundance.id" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition-colors inline-block"
+                  >
+                    Whitepaper
+                  </a>
+                </div>
+              </div>
+            {/* </div> */}
+          </div>
+
+
+        </div>
+      </section>
+
+
+
+      {/* Section 6 - Newsletter Subscription */}
+      <section ref={section6Ref} className="min-h-screen flex flex-col items-center justify-center py-12 md:py-24 bg-white">
+
+
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+          {/* Header */}
+          <div className="text-center mb-8 md:mb-8 animate-on-scroll">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
+              Join the New Economic Revolution
+            </h2>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-[52.8rem] mx-auto px-2 mb-6">
+              We’re building the business model for the Digital Age — a model designed for networks, not just corporations
+            </p>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-[45rem] mx-auto px-2 mb-6">
+              If you want to help shape what comes next, join the community leading the shift:
+            </p>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-[30rem] mx-auto px-0 mb-2">
+              Subscrible to the <strong><em>New Economic Revolution</em></strong> on Substack
+            </p>
+            
+
+
+            {/* <p className="text-lg md:text-2xl lg:text-3xl text-gray-600 max-w-xl mx-auto px-2 mb-4">
+              <strong>Join The New Economic Revolution</strong>
+            </p> */}
+
+            {/* <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2">
+              But these models don't just underperform — they also spark crises across the system. As technology accelerates, these crises compound, threatening to spiral into societal collapse.
+            </p> */}
+          </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div className="max-w-md mx-auto px-4 md:px-6 text-center">
+          <form 
+            action="https://abundances.substack.com/api/v1/free" 
+            method="post"
+            className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
+          >
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Type your email..." 
+              required
+              className="flex-1 px-4 py-3 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+            />
+            <button 
+              type="submit"
+              className="px-6 py-3 bg-green-800 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap"
+            >
+              Join
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* Footer */}
+      {/* <footer className="bg-gray-100 py-12">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-gray-500">
+            Excepteur sint occaecat cupidatat non proident
+          </p>
+        </div>
+      </footer> */}
+      </div>
     </div>
   )
 }
