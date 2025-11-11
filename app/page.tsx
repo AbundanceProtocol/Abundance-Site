@@ -172,12 +172,14 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="max-w-md mx-auto px-4 md:px-6 text-center mb-6">
-          <form 
-            action="https://abundances.substack.com/api/v1/free" 
-            method="post"
-            className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
-          >
+         <div className="max-w-md mx-auto px-4 md:px-6 text-center mb-6">
+           <form 
+             action="https://abundances.substack.com/api/v1/free" 
+             method="post"
+             target="_blank"
+             rel="noopener noreferrer"
+             className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
+           >
             <input 
               type="email" 
               name="email" 
@@ -1005,6 +1007,8 @@ export default function Home() {
           <form 
             action="https://abundances.substack.com/api/v1/free" 
             method="post"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
           >
             <input 
