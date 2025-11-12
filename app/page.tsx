@@ -993,7 +993,7 @@ export default function Home() {
               a model designed for networks, not just corporations
             </p>
             <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[45rem] mx-auto px-2 mb-6">
-              Help shape what comes next by joining the community leading the shift:
+              Help shape the future of the digital economy
             </p>
             <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[30rem] mx-auto px-0 mb-2">
               Subscrible to the <strong><em>New Economic Revolution</em></strong> on Substack
