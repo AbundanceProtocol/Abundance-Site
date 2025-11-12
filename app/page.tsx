@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { FaRegClock } from 'react-icons/fa'
 import { FaSkullCrossbones, FaRegLightbulb } from 'react-icons/fa6'
-import { IoWarning } from 'react-icons/io5'
-import { SiSubstack } from 'react-icons/si'
+import { IoWarning, IoMail } from 'react-icons/io5'
+import { SiSubstack, SiYoutube, SiX, SiThreads, SiGithub } from 'react-icons/si'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -172,26 +172,26 @@ export default function Home() {
           </p>
         </div>
 
-         <div className="max-w-md mx-auto px-4 md:px-6 text-center mb-6">
+         <div className="max-w-4xl mx-auto px-4 md:px-6 text-center mb-6">
            <form 
              action="https://abundances.substack.com/api/v1/free" 
              method="post"
              target="_blank"
              rel="noopener noreferrer"
-             className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
+             className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center"
            >
             <input 
               type="email" 
               name="email" 
               placeholder="Type your email..." 
               required
-              className="flex-1 px-4 py-3 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              className="flex-1 px-6 py-5 text-lg border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
             />
             <button 
               type="submit"
-              className="px-6 py-3 bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
+              className="px-9 py-5 text-lg bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
             >
-              <SiSubstack className="w-4 h-4" />
+              <SiSubstack className="w-6 h-6" />
               Join
             </button>
           </form>
@@ -988,10 +988,12 @@ export default function Home() {
               Join the New Economic Revolution
             </h2>
             <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[52.8rem] mx-auto px-2 mb-6">
-              We’re building the business model for the Digital Age — a model designed for networks, not just corporations
+              We're building the business model for the Digital Age
+              <br />
+              a model designed for networks, not just corporations
             </p>
             <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[45rem] mx-auto px-2 mb-6">
-              If you want to help shape what comes next, join the community leading the shift:
+              Help shape what comes next by joining the community leading the shift:
             </p>
             <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[30rem] mx-auto px-0 mb-2">
               Subscrible to the <strong><em>New Economic Revolution</em></strong> on Substack
@@ -1022,29 +1024,107 @@ export default function Home() {
 
 
 
-        <div className="max-w-md mx-auto px-4 md:px-6 text-center">
+        <div className="max-w-[45rem] mx-auto px-4 md:px-6 text-center">
           <form 
             action="https://abundances.substack.com/api/v1/free" 
             method="post"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
+            className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center"
           >
             <input 
               type="email" 
               name="email" 
               placeholder="Type your email..." 
               required
-              className="flex-1 px-4 py-3 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              className="flex-1 px-6 py-5 text-lg border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
             />
             <button 
               type="submit"
-              className="px-6 py-3 bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
+              className="px-9 py-5 text-lg bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
             >
-              <SiSubstack className="w-4 h-4" />
-              Join
+              <SiSubstack className="w-6 h-6" />
+                Join
             </button>
           </form>
+
+          {/* Social Media Buttons */}
+          <div className="mt-24 flex flex-nowrap justify-center gap-4 overflow-x-auto">
+            <a
+              href="https://x.com/Abundance_DAO"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-900 hover:bg-gray-800 text-white transition-colors"
+              aria-label="X (Twitter)"
+            >
+              <SiX className="w-6 h-6" />
+            </a>
+            <a
+              href="https://www.youtube.com/@AbundanceProtocol"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 rounded-full text-white transition-colors"
+              style={{ backgroundColor: '#FF0000' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#CC0000'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FF0000'}
+              aria-label="YouTube"
+            >
+              <SiYoutube className="w-6 h-6" />
+            </a>
+            <a
+              href="https://threads.net/@abundance.eth"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-900 hover:bg-gray-800 text-white transition-colors"
+              aria-label="Threads"
+            >
+              <SiThreads className="w-6 h-6" />
+            </a>
+            <a
+              href="https://warpcast.com/abundance"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 rounded-full text-white transition-colors"
+              style={{ backgroundColor: '#6B46C1' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5B21B6'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#6B46C1'}
+              aria-label="Farcaster"
+            >
+              <svg className="w-8 h-8" viewBox="0 0 1000 1000" fill="currentColor">
+                <path d="M257.778 155.556H742.222V844.444H671.111V528.889H670.414C662.554 441.677 589.258 373.333 500 373.333C410.742 373.333 337.446 441.677 329.586 528.889H328.889V844.444H257.778V155.556Z" fill="currentColor"/>
+                <path d="M128.889 253.333L157.778 351.111H182.222V746.667C169.949 746.667 160 756.616 160 768.889V795.556H155.556C143.283 795.556 133.333 805.505 133.333 817.778V844.444H382.222V817.778C382.222 805.505 372.273 795.556 360 795.556H355.556V768.889C355.556 756.616 345.606 746.667 333.333 746.667H306.667V253.333H128.889Z" fill="currentColor"/>
+                <path d="M675.556 746.667C663.282 746.667 653.333 756.616 653.333 768.889V795.556H648.889C636.616 795.556 626.667 805.505 626.667 817.778V844.444H875.556V817.778C875.556 805.505 865.606 795.556 853.333 795.556H848.889V768.889C848.889 756.616 838.94 746.667 826.667 746.667V351.111H851.111L880 253.333H702.222V746.667H675.556Z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a
+              href="https://github.com/AbundanceProtocol"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-900 hover:bg-gray-800 text-white transition-colors"
+              aria-label="GitHub"
+            >
+              <SiGithub className="w-6 h-6" />
+            </a>
+            <a
+              href="https://abundances.substack.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-12 h-12 rounded-full text-white transition-colors"
+              style={{ backgroundColor: '#FF6719' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E55A0F'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FF6719'}
+              aria-label="Substack"
+            >
+              <SiSubstack className="w-6 h-6" />
+            </a>
+            <a
+              href="mailto:michael@abundance.id"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-900 hover:bg-gray-800 text-white transition-colors"
+              aria-label="Email"
+            >
+              <IoMail className="w-6 h-6" />
+            </a>
+          </div>
         </div>
       </section>
 
