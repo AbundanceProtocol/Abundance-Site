@@ -281,12 +281,12 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-2 mb-16">
               {/* Social Media */}
               <div className="flex flex-col items-center w-[90%] mx-auto">
-                <div className="w-32 h-32 mb-4">
+                <div className="w-40 h-40 mb-4">
                   <Image 
                     src="/images/Social-media.png" 
                     alt="Social Media" 
-                    width={160} 
-                    height={160}
+                    width={200} 
+                    height={200}
                     className="w-full h-full object-contain"
                     style={{ filter: 'sepia(100%) saturate(300%) hue-rotate(180deg) brightness(0.9)' }}
                   />
@@ -306,14 +306,14 @@ export default function Home() {
               
               {/* News Media */}
               <div className="flex flex-col items-center w-[90%] mx-auto">
-                <div className="w-32 h-32 mb-4">
+                <div className="w-40 h-40 mb-4">
                   <Image 
                     src="/images/News.png" 
                     alt="News Media" 
-                    width={160} 
-                    height={160}
+                    width={200} 
+                    height={200}
                     className="w-full h-full object-contain"
-                    style={{ filter: 'sepia(100%) saturate(300%) hue-rotate(180deg) brightness(0.9)' }}
+                    style={{ filter: 'sepia(100%) saturate(500%) hue-rotate(-40deg) brightness(0.92)' }}
                   />
                 </div>
                 <div className="text-left w-full">
@@ -331,12 +331,12 @@ export default function Home() {
               
               {/* AI */}
               <div className="flex flex-col items-center w-[90%] mx-auto">
-                <div className="w-32 h-32 mb-4">
+                <div className="w-40 h-40 mb-4">
                   <Image 
                     src="/images/ai.png" 
                     alt="Artificial Intelligence" 
-                    width={160} 
-                    height={160}
+                    width={200} 
+                    height={200}
                     className="w-full h-full object-contain"
                     style={{ filter: 'sepia(100%) saturate(300%) hue-rotate(180deg) brightness(0.9)' }}
                   />
