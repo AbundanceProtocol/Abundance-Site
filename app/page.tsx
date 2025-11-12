@@ -185,13 +185,13 @@ export default function Home() {
               name="email" 
               placeholder="Type your email..." 
               required
-              className="flex-1 px-6 py-5 text-lg border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              className="flex-1 px-4 py-3 md:px-6 md:py-5 text-base md:text-lg border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
             />
             <button 
               type="submit"
-              className="px-9 py-5 text-lg bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
+              className="px-6 py-3 md:px-9 md:py-5 text-lg md:text-2xl bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[12px]"
             >
-              <SiSubstack className="w-6 h-6" />
+              <SiSubstack className="w-4 h-4 md:w-6 md:h-6" />
               Join
             </button>
           </form>
@@ -1037,19 +1037,19 @@ export default function Home() {
               name="email" 
               placeholder="Type your email..." 
               required
-              className="flex-1 px-6 py-5 text-lg border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              className="flex-1 px-4 py-3 md:px-6 md:py-5 text-base md:text-lg border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
             />
             <button 
               type="submit"
-              className="px-9 py-5 text-lg bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
+              className="px-6 py-3 md:px-9 md:py-5 text-lg md:text-2xl bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[12px]"
             >
-              <SiSubstack className="w-6 h-6" />
+              <SiSubstack className="w-4 h-4 md:w-6 md:h-6" />
                 Join
             </button>
           </form>
 
           {/* Social Media Buttons */}
-          <div className="mt-24 flex flex-nowrap justify-center gap-4 overflow-x-auto">
+          <div className="mt-24 flex flex-wrap justify-center gap-4">
             <a
               href="https://x.com/Abundance_DAO"
               target="_blank"
