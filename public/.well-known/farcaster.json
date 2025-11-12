@@ -1,0 +1,27 @@
+{
+  "frame": {
+    "name": "Abundance",
+    "version": "1",
+    "iconUrl": "https://abundance.id/images/icon.png",
+    "homeUrl": "https://abundance.id",
+    "primaryCategory": "education",
+    "description": "Join the New Economic Revolution",
+    "subtitle": "Join the New Economic Revolution",
+    "ogImageUrl": "https://abundance.id/images/icon.png",
+    "ogDescription": "Join the New Economic Revolution",
+    "buttonTitle": "Join the Revolution",
+    "ogTitle": "Abundance",
+    "splashBackgroundColor": "#001445",
+    "splashImageUrl": "https://abundance.id/images/icon.png",
+    "imageUrl": "https://abundance.id/images/icon.png",
+    "screenshotUrls": [
+      "https://abundance.id/images/icon.jpg"
+    ],
+    "heroImageUrl": "https://abundance.id/images/icon.png",
+    "tagline": "Join the Revolution",
+    "tags": [
+      "economics",
+      "crypto"
+    ]
+  }
+}

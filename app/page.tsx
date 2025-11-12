@@ -313,7 +313,7 @@ export default function Home() {
                     width={200} 
                     height={200}
                     className="w-full h-full object-contain"
-                    style={{ filter: 'sepia(100%) saturate(500%) hue-rotate(-40deg) brightness(0.92)' }}
+                    style={{ filter: 'sepia(100%) saturate(700%) hue-rotate(-50deg) brightness(0.92)' }}
                   />
                 </div>
                 <div className="text-left w-full">
@@ -954,7 +954,7 @@ export default function Home() {
                     href="https://book.abundance.id" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-red-700 text-white rounded-lg font-semibold hover:bg-red-800 transition-colors inline-block"
+                    className="px-6 py-3 bg-red-700 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors inline-block"
                   >
                     Abundance Economy book
                   </a>
@@ -962,7 +962,7 @@ export default function Home() {
                     href="https://whitepaper.abundance.id" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-red-700 text-white rounded-lg font-semibold hover:bg-red-800 transition-colors inline-block"
+                    className="px-6 py-3 bg-red-700 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors inline-block"
                   >
                     Read Whitepaper
                   </a>
