@@ -23,5 +23,13 @@
       "economics",
       "crypto"
     ]
+  },
+  "accountAssociation": {
+    "header": "eyJmaWQiOjkzMjYsInR5cGUiOiJhdXRoIiwia2V5IjoiMHgzOWE4NEZmYzdlYmVGOUI5N2ZkNjA5MDUxMTA0QzFkNjM3NkE2RGI0In0",
+    "payload": "eyJkb21haW4iOiJhYnVuZGFuY2UuaWQifQ",
+    "signature": "5QEkhVKr34dt/eA70qIRZZ9+/ZlKefqEetFGUI6bBVttgl9y7nfYyQksJ3ZEscjh5wk3LLF/2ZSZiY1IdEKSLxs="
+  },
+  "baseBuilder": {
+    "allowedAddresses": ["0x593d5F0665C812FD7B09bD2c769D1Dc12139F465"]
   }
 }
