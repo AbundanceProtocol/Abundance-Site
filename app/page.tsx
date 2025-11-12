@@ -143,7 +143,7 @@ export default function Home() {
       {/* Hero Section */}
       <section 
         ref={heroRef}
-        className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-20"  style={{ backdropFilter: 'blur(6px)', backgroundColor: '#001100dd' }}
+        className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden py-20"  style={{ backdropFilter: 'blur(6px)', background: 'linear-gradient(60deg, #660000dd 0%, #660000dd 10%, #001445dd 100%)' }}
       >
         {/* Tinted Blur Overlay */}
         <div className="absolute" />
@@ -151,7 +151,7 @@ export default function Home() {
         <div className="relative z-10 text-center px-6 max-w-5xl">
           {/* Eyebrow label */}
           <div className="animate-fade-in-up mb-6">
-            <span className="text-green-300 text-xl md:text-2xl font-semibold tracking-wide">
+            <span className="text-xl md:text-2xl font-semibold tracking-wide" style={{ color: '#66ddff' }}>
               THE ABUNDANCE ECONOMY
             </span>
           </div>
@@ -164,10 +164,10 @@ export default function Home() {
           </h1>
           
           {/* Description */}
-          <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <p className="text-base md:text-2xl lg:text-3xl text-gray-100 mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           Our current business models were designed for factories and scarcity — not for networks and abundance. We’re developing a new model built for the Digital Age
           </p>
-          <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-4 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <p className="text-lg md:text-2xl lg:text-3xl  text-gray-100 mb-4 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           Join the <strong><em>New Economic Revolution</em></strong>
           </p>
         </div>
@@ -189,7 +189,7 @@ export default function Home() {
             />
             <button 
               type="submit"
-              className="px-6 py-3 bg-green-800 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
+              className="px-6 py-3 bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
             >
               <SiSubstack className="w-4 h-4" />
               Join
@@ -267,93 +267,91 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           {/* Header */}
           <div className="text-center mb-12 md:mb-20 animate-on-scroll">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
               Fixing a Broken System
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-[52.8rem] mx-auto px-2 mb-6">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] max-w-[52.8rem] mx-auto px-2 mb-6">
               Our Industrial Age business models break down in the digital economy
             </p>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-xl mx-auto px-2 mb-6">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-xl mx-auto px-2 mb-6">
               They keep producing outcomes that harm the networks we all depend on
             </p>
-            {/* Social Media with Image */}
-            <div className="flex flex-col md:flex-row md:items-start items-center justify-center gap-6 max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-2 mb-6">
-              <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
-                <Image 
-                  src="/images/Social-media.png" 
-                  alt="Social Media" 
-                  width={160} 
-                  height={160}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div className="text-center md:text-left flex-1 md:max-w-xl lg:max-w-2xl flex flex-col justify-center md:min-h-[160px]">
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-1">
-                  Social media
-                </p>
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
-                  The network wants relevant content for each user
-                </p>
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
-                  But the model sells <strong>attention</strong> — pushing outrage and addiction
-                </p>
-                {/* <p className="text-base md:text-lg lg:text-xl text-gray-600"></p>
-                  It pits us against each other and keeps us hooked
-                </p> */}
-              </div>
-            </div>
             
-            {/* News Media with Image */}
-            <div className="flex flex-col md:flex-row md:items-start items-center justify-center gap-6 max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-2 mb-6">
-              <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
-                <Image 
-                  src="/images/News.png" 
-                  alt="News Media" 
-                  width={160} 
-                  height={160}
-                  className="w-full h-full object-contain"
-                />
+            {/* Three sections in horizontal layout */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-2 mb-16">
+              {/* Social Media */}
+              <div className="flex flex-col items-center w-[90%] mx-auto">
+                <div className="w-32 h-32 mb-4">
+                  <Image 
+                    src="/images/Social-media.png" 
+                    alt="Social Media" 
+                    width={160} 
+                    height={160}
+                    className="w-full h-full object-contain"
+                    style={{ filter: 'sepia(100%) saturate(300%) hue-rotate(180deg) brightness(0.9)' }}
+                  />
+                </div>
+                <div className="text-left w-full">
+                  <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-2">
+                    Social media
+                  </p>
+                  <p className="text-base md:text-lg text-gray-600 mb-2">
+                    The network wants relevant content for each user
+                  </p>
+                  <p className="text-base md:text-lg text-gray-600">
+                    But the model sells <strong>attention</strong> — pushing outrage and addiction
+                  </p>
+                </div>
               </div>
-              <div className="text-center md:text-left flex-1 md:max-w-xl lg:max-w-2xl flex flex-col justify-center md:min-h-[160px]">
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-1">
-                  News media
-                </p>
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
-                  The network wants verified, shared facts
-                </p>
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
-                  But the model sells <strong>ratings</strong> — rewarding popularity, not truth
-                </p>
-                {/* <p className="text-base md:text-lg lg:text-xl text-gray-600">
-                  ...instead of informing us
-                </p> */}
+              
+              {/* News Media */}
+              <div className="flex flex-col items-center w-[90%] mx-auto">
+                <div className="w-32 h-32 mb-4">
+                  <Image 
+                    src="/images/News.png" 
+                    alt="News Media" 
+                    width={160} 
+                    height={160}
+                    className="w-full h-full object-contain"
+                    style={{ filter: 'sepia(100%) saturate(300%) hue-rotate(180deg) brightness(0.9)' }}
+                  />
+                </div>
+                <div className="text-left w-full">
+                  <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-2">
+                    News media
+                  </p>
+                  <p className="text-base md:text-lg text-gray-600 mb-2">
+                    The network wants verified, shared facts
+                  </p>
+                  <p className="text-base md:text-lg text-gray-600">
+                    But the model sells <strong>ratings</strong> — rewarding popularity, not truth
+                  </p>
+                </div>
               </div>
-            </div>
-            
-            {/* AI with Image */}
-            <div className="flex flex-col md:flex-row md:items-start items-center justify-center gap-6 max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-2 mb-8">
-              <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
-                <Image 
-                  src="/images/ai.png" 
-                  alt="Artificial Intelligence" 
-                  width={160} 
-                  height={160}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div className="text-center md:text-left flex-1 md:max-w-xl lg:max-w-2xl flex flex-col justify-center md:min-h-[160px]">
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-1">
-                  Artificial Intelligence
-                </p>
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
-                  The network wants broad prosperity for all
-                </p>
-                <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-2">
-                  But the model sells <strong>usage</strong> — driving joblessness, not productivity
-                </p>
-                {/* <p className="text-base md:text-lg lg:text-xl text-gray-600">
-                  ...instead of making society more prosperous
-                </p> */}
+              
+              {/* AI */}
+              <div className="flex flex-col items-center w-[90%] mx-auto">
+                <div className="w-32 h-32 mb-4">
+                  <Image 
+                    src="/images/ai.png" 
+                    alt="Artificial Intelligence" 
+                    width={160} 
+                    height={160}
+                    className="w-full h-full object-contain"
+                    style={{ filter: 'sepia(100%) saturate(300%) hue-rotate(180deg) brightness(0.9)' }}
+                  />
+                </div>
+                <div className="text-left w-full">
+                  <p className="text-base md:text-lg lg:text-xl text-gray-600 font-bold mb-2">
+                    Artificial Intelligence
+                  </p>
+                  <p className="text-base md:text-lg text-gray-600 mb-2">
+                    The network wants broad prosperity for all
+                  </p>
+                  <p className="text-base md:text-lg text-gray-600">
+                    But the model sells <strong>usage</strong> — driving joblessness, not productivity
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -378,7 +376,13 @@ export default function Home() {
       </section>
 
       {/* Apple-style Dark Section */}
-      <section className="py-16 md:py-24 lg:py-32 relative overflow-hidden"  style={{ backdropFilter: 'blur(5px)', backgroundColor: '#001100cc' }}>
+      <section
+        className="py-16 md:py-24 lg:py-32 relative overflow-hidden"
+        style={{
+          backdropFilter: 'blur(5px)',
+          background: 'linear-gradient(-60deg, #660000dd 0%, #660000dd 10%, #001445dd 100%)'
+        }}
+      >
         {/* Background Image with Blur */}
         {/* <div className="absolute inset-0">
           <Image 
@@ -397,7 +401,7 @@ export default function Home() {
             <p className="text-lg md:text-2xl text-gray-100 mb-3 md:mb-4 font-medium tracking-wide">
               Aligning incentives
             </p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 md:mb-8 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 md:mb-8 leading-tight">
               A Network-first approach
               {/* <br />
               more places. */}
@@ -431,7 +435,19 @@ export default function Home() {
           {/* Header */}
           <div className="mb-12 md:mb-16 animate-on-scroll">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
-              {/* Text content on the left */}
+              {/* Image on the left */}
+              <div className="flex-shrink-0 w-full md:w-1/3 lg:w-2/5">
+                <Image 
+                  src="/images/network-04.png"
+                  alt="Network visualization"
+                  width={500}
+                  height={500}
+                  className="w-full h-auto"
+                  style={{ filter: 'sepia(100%) saturate(300%) hue-rotate(180deg) brightness(0.9)' }}
+                />
+              </div>
+              
+              {/* Text content on the right */}
               <div className="flex-1">
                 <p className="text-lg md:text-2xl text-gray-600 mb-3 md:mb-4 font-semibold">Business-to-Network (B2N)</p>
                 <h2 className="font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
@@ -447,22 +463,18 @@ export default function Home() {
                   Here's how the B2N model realigns incentives across the digital economy:
                 </p>
               </div>
-              
-              {/* Image on the right */}
-              <div className="flex-shrink-0 w-full md:w-1/3 lg:w-2/5">
-                <Image 
-                  src="/images/network-04.png"
-                  alt="Network visualization"
-                  width={500}
-                  height={500}
-                  className="w-full h-auto"
-                />
-              </div>
             </div>
           </div>
 
           {/* Scrollable Cards Container */}
-          <div className="relative">
+          <div className="relative md:flex md:items-center md:gap-4">
+            {/* Left Navigation Button (Desktop) */}
+            <button onClick={scrollLeft} className="hidden md:flex w-12 h-12 rounded-full bg-white border border-gray-600 items-center justify-center hover:bg-gray-50 transition-colors shadow-lg flex-shrink-0">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
             <div ref={cardsContainerRef} className="flex gap-4 md:gap-6 overflow-x-auto pb-12 md:pb-8 scrollbar-hide snap-x snap-mandatory">
               {/* Card 1 */}
               <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll">
@@ -494,10 +506,10 @@ export default function Home() {
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
-                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                      <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(0deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
                         {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
-                        <p className="text-sm md:text-base text-gray-900 text-center">Platforms earn by improving the quality and usefulness of content distribution. The better they serve the network’s interests, the more they profit.</p>
+                        <p className="text-sm md:text-base text-gray-900 text-center">Platforms earn by improving the quality and usefulness of content distribution. The better they serve the network's interests, the more they profit.</p>
                       </div>
                     </div>
 
@@ -549,7 +561,7 @@ export default function Home() {
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
-                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                      <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(180deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
                         {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Media earns by providing accurate, balanced reporting that improves collective understanding. Reward is tied to network-wide informational value</p>
@@ -604,7 +616,7 @@ export default function Home() {
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
-                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                      <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(60deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
                         {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">A.I. is open and contributive. Developers and data providers are rewarded based on measurable positive impact. Network well-being becomes the core performance metric</p>
@@ -653,7 +665,7 @@ export default function Home() {
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
-                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                      <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(90deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
                         {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Innovators are rewarded based on the measured impact they create across the network. Everyone has access — maximizing adoption, benefit, and further innovation</p>
@@ -709,7 +721,7 @@ export default function Home() {
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
-                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                      <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(120deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
                         {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Research is rewarded based on benefit for the network — including downstream applications and derived innovations.
@@ -765,7 +777,7 @@ export default function Home() {
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
-                      <div className="h-1/2 bg-green-300 flex flex-col items-center justify-center p-6 pt-16 pb-12">
+                      <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(150deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
                         {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Research is rewarded based on health impact across the network, regardless of whether it produces a consumer product. Knowledge is open for others to build on, accelerating medical progress</p>
@@ -807,14 +819,21 @@ export default function Home() {
               {/* </div> */}
             </div>
 
-            {/* Navigation Arrows */}
-            <div className="flex gap-2 justify-center md:justify-start -mt-10 md:-mt-4">
-              <button onClick={scrollLeft} className="w-10 h-10 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+            {/* Right Navigation Button (Desktop) */}
+            <button onClick={scrollRight} className="hidden md:flex w-12 h-12 rounded-full bg-white border border-gray-600 items-center justify-center hover:bg-gray-50 transition-colors shadow-lg flex-shrink-0">
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Navigation Arrows (Mobile Only) */}
+            <div className="flex md:hidden gap-2 justify-center -mt-10">
+              <button onClick={scrollLeft} className="w-10 h-10 rounded-full bg-white border border-gray-600 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
                 <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <button onClick={scrollRight} className="w-10 h-10 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+              <button onClick={scrollRight} className="w-10 h-10 rounded-full bg-white border border-gray-600 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
                 <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -826,20 +845,20 @@ export default function Home() {
 
 
       {/* Transformation Sliders Section */}
-      <section className="py-12 md:py-24 relative overflow-hidden" style={{ backdropFilter: 'blur(2px)', backgroundColor: '#001100c6' }}>
+      <section className="py-12 md:py-24 relative overflow-hidden" style={{ backdropFilter: 'blur(2px)', background: 'linear-gradient(-90deg, #660000dd 0%, #660000dd 10%, #001445dd 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           {/* Header */}
           <div className="text-center mb-2 md:mb-2 animate-on-scroll">
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4 px-2">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-4 px-2">
               How B2N Works
             </h2>
             <div className="flex justify-center">
-              <p className="text-base md:text-xl lg:text-2xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
                 Businesses work because they are unified economic units: they know what they value, control shared resources, and reward actions that strengthen them.
               </p>
             </div>
             <div className="flex justify-center">
-              <p className="text-base md:text-xl lg:text-2xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
                 B2N applies this same structure to networks
               </p>
             </div>
@@ -899,12 +918,12 @@ export default function Home() {
 
           <div className="text-center mb-2 md:mb-2 animate-on-scroll">
             <div className="flex justify-center">
-              <p className="text-base md:text-xl lg:text-2xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10 text-center">
                 In B2N, the more you improve the network, the more you earn
               </p>
             </div>
             <div className="flex justify-center">
-              <p className="text-base md:text-xl lg:text-2xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-2.5 text-center">
+              <p className="text-base md:text-2xl lg:text-3xl text-gray-100 max-w-4xl leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-2.5 text-center">
                 This aligns incentives across the entire digital economy — instead of benefiting a few at the expense of the whole
               </p>
             </div>
@@ -927,7 +946,7 @@ export default function Home() {
               
               {/* CTA Section */}
               <div className="mt-6 text-center">
-                <p className="text-base md:text-lg text-gray-100 mb-4">
+                <p className="text-lg md:text-xl lg:text-2xl text-gray-100 mb-4">
                   For more in-depth explanation of the B2N model see
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
@@ -935,7 +954,7 @@ export default function Home() {
                     href="https://book.abundance.id" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition-colors inline-block"
+                    className="px-6 py-3 bg-red-700 text-white rounded-lg font-semibold hover:bg-red-800 transition-colors inline-block"
                   >
                     Abundance Economy book
                   </a>
@@ -943,9 +962,9 @@ export default function Home() {
                     href="https://whitepaper.abundance.id" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition-colors inline-block"
+                    className="px-6 py-3 bg-red-700 text-white rounded-lg font-semibold hover:bg-red-800 transition-colors inline-block"
                   >
-                    Whitepaper
+                    Read Whitepaper
                   </a>
                 </div>
               </div>
@@ -965,16 +984,16 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 md:px-6">
           {/* Header */}
           <div className="text-center mb-8 md:mb-8 animate-on-scroll">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
               Join the New Economic Revolution
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-[52.8rem] mx-auto px-2 mb-6">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[52.8rem] mx-auto px-2 mb-6">
               We’re building the business model for the Digital Age — a model designed for networks, not just corporations
             </p>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-[45rem] mx-auto px-2 mb-6">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[45rem] mx-auto px-2 mb-6">
               If you want to help shape what comes next, join the community leading the shift:
             </p>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-[30rem] mx-auto px-0 mb-2">
+            <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[30rem] mx-auto px-0 mb-2">
               Subscrible to the <strong><em>New Economic Revolution</em></strong> on Substack
             </p>
             
@@ -1020,7 +1039,7 @@ export default function Home() {
             />
             <button 
               type="submit"
-              className="px-6 py-3 bg-green-800 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
+              className="px-6 py-3 bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[8px]"
             >
               <SiSubstack className="w-4 h-4" />
               Join
