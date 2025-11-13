@@ -208,11 +208,11 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search)
       const refParam = urlParams.get('ref')
+      console.log('ref', refParam)
       if (refParam) {
         const refNumber = Number(refParam)
         if (!isNaN(refNumber) && refNumber > 0) {
           setRef(refNumber)
-          console.log('ref', refNumber)
         }
       }
     }
