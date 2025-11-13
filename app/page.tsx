@@ -186,7 +186,7 @@ export default function Home() {
   const shareCast = async () => {
     try {
       const url = `https://abundance.id/?ref=${fid}`;
-      let text = `I just joined the New Economic Revolution. Check it out here:`;
+      let text = `I just joined the New Economic Revolution\n\nCheck it out here:`;
 
       const encodedText = encodeURIComponent(text);
       const encodedUrl = encodeURIComponent(url);
