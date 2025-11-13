@@ -247,6 +247,7 @@ export default function Home() {
             try {
               const url = new URL(contextUrl);
               const contextRefParam = url.searchParams.get('ref');
+              console.log('contextRefParam', contextRefParam)
               if (contextRefParam) {
                 const refNumber = Number(contextRefParam)
                 if (!isNaN(refNumber) && refNumber > 0) {
