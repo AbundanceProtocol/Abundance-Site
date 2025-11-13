@@ -39,7 +39,7 @@ async function fetchWalletAddress(fid: number): Promise<string> {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { email, fid, username } = body
+    const { email, fid, username, ref } = body
 
     // Validate email format - requires valid domain with at least 2 characters TLD
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
         const existingSubscriber = await Subscriber.findOne({ fid })
         
         if (existingSubscriber) {
-          // Update existing subscriber with email and wallet if not already set
+          // Update existing subscriber with email, wallet, and referral if not already set
           let updated = false
           if (!existingSubscriber.email) {
             existingSubscriber.email = trimmedEmail
@@ -72,6 +72,10 @@ export async function POST(request: NextRequest) {
           }
           if (!existingSubscriber.wallet && walletAddress) {
             existingSubscriber.wallet = walletAddress
+            updated = true
+          }
+          if (!existingSubscriber.referral && ref) {
+            existingSubscriber.referral = Number(ref)
             updated = true
           }
           if (updated) {
@@ -91,6 +95,7 @@ export async function POST(request: NextRequest) {
             username: username,
             email: trimmedEmail,
             wallet: walletAddress || undefined,
+            referral: ref ? Number(ref) : undefined,
           })
         }
       } catch (dbError) {

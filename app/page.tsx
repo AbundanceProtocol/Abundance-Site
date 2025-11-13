@@ -11,6 +11,7 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [fid, setFid] = useState<number | null>(null)
   const [username, setUsername] = useState<string | null>(null)
+  const [ref, setRef] = useState<number | null>(null)
   const [heroEmail, setHeroEmail] = useState('')
   const [heroEmailError, setHeroEmailError] = useState('')
   const [section6Email, setSection6Email] = useState('')
@@ -55,6 +56,7 @@ export default function Home() {
           email,
           fid: fid ?? null,
           username: username ?? null,
+          ref: fid !== null ? (ref ?? null) : null,
         }),
       })
       
@@ -131,6 +133,7 @@ export default function Home() {
           email,
           fid: fid ?? null,
           username: username ?? null,
+          ref: fid !== null ? (ref ?? null) : null,
         }),
       })
       
@@ -199,6 +202,20 @@ export default function Home() {
       console.warn('Share failed:', e);
     }
   };
+
+  useEffect(() => {
+    // Read ref query parameter from URL
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      const refParam = urlParams.get('ref')
+      if (refParam) {
+        const refNumber = Number(refParam)
+        if (!isNaN(refNumber) && refNumber > 0) {
+          setRef(refNumber)
+        }
+      }
+    }
+  }, [])
 
   useEffect(() => {
     (async () => {
