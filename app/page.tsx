@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { FaRegClock } from 'react-icons/fa'
 import { FaSkullCrossbones, FaRegLightbulb } from 'react-icons/fa6'
@@ -9,7 +8,6 @@ import { IoMail, IoLinkOutline, IoClose } from 'react-icons/io5'
 import { SiSubstack, SiYoutube, SiX, SiThreads, SiGithub } from 'react-icons/si'
 
 export default function Home() {
-  const searchParams = useSearchParams()
   const [scrollY, setScrollY] = useState(0)
   const [fid, setFid] = useState<number | null>(null)
   const [username, setUsername] = useState<string | null>(null)
@@ -206,73 +204,54 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Try to get ref from Next.js searchParams first (most reliable)
-    const refParam = searchParams?.get('ref')
-    
-    if (refParam) {
-      const refNumber = Number(refParam)
-      if (!isNaN(refNumber) && refNumber > 0) {
-        console.log('ref param found from searchParams:', refNumber)
-        setRef(refNumber)
-        return
-      }
-    }
-    
-    // Fallback: Try window.location (for cases where searchParams might not work)
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search)
-      const windowRefParam = urlParams.get('ref')
-      if (windowRefParam) {
-        const refNumber = Number(windowRefParam)
-        if (!isNaN(refNumber) && refNumber > 0) {
-          console.log('ref param found from window.location:', refNumber)
-          setRef(refNumber)
-          return
-        }
-      }
-    }
-    
-    // Last resort: Try SDK context for miniapp
     (async () => {
-      try {
-        const mod = await import("@farcaster/miniapp-sdk");
-        const sdk = mod.sdk;
-        const isMiniApp: boolean = await sdk.isInMiniApp();
-        
-        if (isMiniApp) {
-          const context = await sdk.context;
-          // Check if context has URL or query params
-          const contextUrl = (context as any)?.url || (context as any)?.initialUrl;
-          if (contextUrl) {
-            try {
-              const url = new URL(contextUrl);
-              const contextRefParam = url.searchParams.get('ref');
-              console.log('contextRefParam', contextRefParam)
-              if (contextRefParam) {
-                const refNumber = Number(contextRefParam)
-                if (!isNaN(refNumber) && refNumber > 0) {
-                  console.log('ref param found from SDK context:', refNumber)
-                  setRef(refNumber)
-                }
-              }
-            } catch (e) {
-              // URL parsing failed, try as string
-              const match = contextUrl.match(/[?&]ref=(\d+)/);
-              if (match) {
-                const refNumber = Number(match[1])
-                if (!isNaN(refNumber) && refNumber > 0) {
-                  console.log('ref param found from SDK context (regex):', refNumber)
-                  setRef(refNumber)
+      // Try to get ref from both window.location and SDK context
+      let refParam: string | null = null;
+      
+      // First try window.location (for regular browser access)
+      if (typeof window !== 'undefined') {
+        const urlParams = new URLSearchParams(window.location.search)
+        refParam = urlParams.get('ref')
+      }
+      
+      // If not found and we're in a miniapp, try SDK context
+      if (!refParam) {
+        try {
+          const mod = await import("@farcaster/miniapp-sdk");
+          const sdk = mod.sdk;
+          const isMiniApp: boolean = await sdk.isInMiniApp();
+          
+          if (isMiniApp) {
+            const context = await sdk.context;
+            // Check if context has URL or query params
+            const contextUrl = (context as any)?.url || (context as any)?.initialUrl;
+            if (contextUrl) {
+              try {
+                const url = new URL(contextUrl);
+                refParam = url.searchParams.get('ref');
+              } catch (e) {
+                // URL parsing failed, try as string
+                const match = contextUrl.match(/[?&]ref=(\d+)/);
+                if (match) {
+                  refParam = match[1];
                 }
               }
             }
           }
+        } catch (e) {
+          console.warn('Error getting ref from SDK context:', e);
         }
-      } catch (e) {
-        console.warn('Error getting ref from SDK context:', e);
+      }
+      
+      console.log('ref param found:', refParam);
+      if (refParam) {
+        const refNumber = Number(refParam)
+        if (!isNaN(refNumber) && refNumber > 0) {
+          setRef(refNumber)
+        }
       }
     })();
-  }, [searchParams])
+  }, [])
 
   useEffect(() => {
     (async () => {
