@@ -6,7 +6,10 @@
 # testing
 /test
 
+# local env files
+.env.local
 
 # next.js
 /.next/
 /.next
+/app/home/page.tsx

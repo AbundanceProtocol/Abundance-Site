@@ -4,16 +4,220 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { FaRegClock } from 'react-icons/fa'
 import { FaSkullCrossbones, FaRegLightbulb } from 'react-icons/fa6'
-import { IoWarning, IoMail } from 'react-icons/io5'
+import { IoMail, IoLinkOutline, IoClose } from 'react-icons/io5'
 import { SiSubstack, SiYoutube, SiX, SiThreads, SiGithub } from 'react-icons/si'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
+  const [fid, setFid] = useState<number | null>(null)
+  const [username, setUsername] = useState<string | null>(null)
+  const [heroEmail, setHeroEmail] = useState('')
+  const [heroEmailError, setHeroEmailError] = useState('')
+  const [section6Email, setSection6Email] = useState('')
+  const [section6EmailError, setSection6EmailError] = useState('')
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const featuresRef = useRef<HTMLDivElement>(null)
   const cardsContainerRef = useRef<HTMLDivElement>(null)
   const section2Ref = useRef<HTMLDivElement>(null)
   const section6Ref = useRef<HTMLDivElement>(null)
+
+  const validateEmail = (email: string): boolean => {
+    // More strict validation: requires valid domain with at least 2 characters TLD
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+    return emailRegex.test(email)
+  }
+
+  const handleHeroSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const email = heroEmail.trim()
+    
+    if (!email) {
+      setHeroEmailError('Please enter your email')
+      return
+    }
+    
+    if (!validateEmail(email)) {
+      setHeroEmailError('Please enter a valid email address')
+      return
+    }
+    
+    setHeroEmailError('')
+    
+    try {
+      // First, save to MongoDB (if fid exists)
+      const response = await fetch('/api/setSubscriber', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email,
+          fid: fid ?? null,
+          username: username ?? null,
+        }),
+      })
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        setHeroEmailError(data.error || 'Failed to save subscriber information.')
+        return
+      }
+      
+      // Then submit to Substack from the browser (to avoid 403 errors)
+      try {
+        const substackForm = document.createElement('form')
+        substackForm.method = 'POST'
+        substackForm.action = 'https://abundances.substack.com/api/v1/free'
+        substackForm.target = '_blank'
+        substackForm.style.display = 'none'
+        
+        const emailInput = document.createElement('input')
+        emailInput.type = 'hidden'
+        emailInput.name = 'email'
+        emailInput.value = email
+        substackForm.appendChild(emailInput)
+        
+        document.body.appendChild(substackForm)
+        substackForm.submit()
+        document.body.removeChild(substackForm)
+        
+        // Success - clear email field
+        setHeroEmail('')
+        
+        // Show success modal if fid exists
+        if (fid !== null) {
+          setShowSuccessModal(true)
+        }
+      } catch (substackError) {
+        console.error('Error submitting to Substack:', substackError)
+        // Still clear email since MongoDB save succeeded
+        setHeroEmail('')
+        // Show success modal if fid exists (MongoDB save succeeded)
+        if (fid !== null) {
+          setShowSuccessModal(true)
+        }
+      }
+    } catch (error) {
+      setHeroEmailError('An error occurred. Please try again.')
+    }
+  }
+
+  const handleSection6Submit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const email = section6Email.trim()
+    
+    if (!email) {
+      setSection6EmailError('Please enter your email')
+      return
+    }
+    
+    if (!validateEmail(email)) {
+      setSection6EmailError('Please enter a valid email address')
+      return
+    }
+    
+    setSection6EmailError('')
+    
+    try {
+      // First, save to MongoDB (if fid exists)
+      const response = await fetch('/api/setSubscriber', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email,
+          fid: fid ?? null,
+          username: username ?? null,
+        }),
+      })
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        setSection6EmailError(data.error || 'Failed to save subscriber information.')
+        return
+      }
+      
+      // Then submit to Substack from the browser (to avoid 403 errors)
+      try {
+        const substackForm = document.createElement('form')
+        substackForm.method = 'POST'
+        substackForm.action = 'https://abundances.substack.com/api/v1/free'
+        substackForm.target = '_blank'
+        substackForm.style.display = 'none'
+        
+        const emailInput = document.createElement('input')
+        emailInput.type = 'hidden'
+        emailInput.name = 'email'
+        emailInput.value = email
+        substackForm.appendChild(emailInput)
+        
+        document.body.appendChild(substackForm)
+        substackForm.submit()
+        document.body.removeChild(substackForm)
+        
+        // Success - clear email field
+        setSection6Email('')
+        
+        // Show success modal if fid exists
+        if (fid !== null) {
+          setShowSuccessModal(true)
+        }
+      } catch (substackError) {
+        console.error('Error submitting to Substack:', substackError)
+        // Still clear email since MongoDB save succeeded
+        setSection6Email('')
+        // Show success modal if fid exists (MongoDB save succeeded)
+        if (fid !== null) {
+          setShowSuccessModal(true)
+        }
+      }
+    } catch (error) {
+      setSection6EmailError('An error occurred. Please try again.')
+    }
+  }
+
+  const shareCast = async () => {
+    try {
+      const url = `https://abundance.id/?ref=${fid}`;
+      let text = `I just joined the New Economic Revolution. Check it out here:`;
+
+      const encodedText = encodeURIComponent(text);
+      const encodedUrl = encodeURIComponent(url);
+      const shareLink = `https://farcaster.xyz/~/compose?text=${encodedText}&embeds[]=${[encodedUrl]}`;
+      const { sdk } = await import('@farcaster/miniapp-sdk')
+      const inMiniApp = await sdk.isInMiniApp();
+      if (!inMiniApp) {
+        window.open(shareLink, '_blank');
+        return;
+      }
+      await sdk.actions.composeCast({ text, embeds: [url], close: false });
+    } catch (e) {
+      console.warn('Share failed:', e);
+    }
+  };
+
+
+  useEffect(() => {
+    (async () => {
+      const mod = await import("@farcaster/miniapp-sdk");
+      const sdk = mod.sdk;
+      const isMiniApp: boolean = await sdk.isInMiniApp();
+
+      // sdk.context might be a Promise<any>
+      const userProfile = await sdk.context;
+
+      if (isMiniApp) {
+        setFid(userProfile?.user?.fid ? Number(userProfile.user.fid) : null);
+        setUsername(userProfile?.user?.username ? userProfile.user.username : null);
+        sdk.actions.ready();
+      }
+    })();
+  }, []);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -174,19 +378,28 @@ export default function Home() {
 
          <div className="max-w-4xl mx-auto px-4 md:px-6 text-center mb-6">
            <form 
-             action="https://abundances.substack.com/api/v1/free" 
-             method="post"
-             target="_blank"
-             rel="noopener noreferrer"
+             onSubmit={handleHeroSubmit}
              className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center"
            >
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Type your email..." 
-              required
-              className="flex-1 px-4 py-3 md:px-6 md:py-5 text-base md:text-lg border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-            />
+            <div className="flex-1 flex flex-col relative">
+              <input 
+                type="email" 
+                name="email" 
+                value={heroEmail}
+                onChange={(e) => {
+                  setHeroEmail(e.target.value)
+                  if (heroEmailError) setHeroEmailError('')
+                }}
+                placeholder="Type your email..." 
+                required
+                className={`flex-1 px-4 py-3 md:px-6 md:py-5 text-base md:text-lg border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent ${
+                  heroEmailError ? 'border-red-500' : 'border-gray-500'
+                }`}
+              />
+              {heroEmailError && (
+                <p className="text-red-500 text-sm mt-1 text-left sm:absolute sm:top-full sm:left-0 w-full">{heroEmailError}</p>
+              )}
+            </div>
             <button 
               type="submit"
               className="px-6 py-3 md:px-9 md:py-5 text-lg md:text-2xl bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[12px]"
@@ -231,15 +444,6 @@ export default function Home() {
                   <FaRegLightbulb color="#996600" className="text-orange-400 flex-shrink-0 mt-1" />
                   <span><strong>New business model is available</strong></span>
                 </p>
-                {/* Checkbox */}
-                {/* <label className="flex items-start md:items-center gap-2 md:gap-3 mb-6 md:mb-8 cursor-pointer group">
-                  <div className="w-4 h-4 md:w-5 md:h-5 border-2 border-gray-400 rounded flex items-center justify-center group-hover:border-gray-500 transition-colors flex-shrink-0 mt-0.5 md:mt-0">
-                    <div className="w-2 h-2 bg-gray-400 rounded-sm opacity-0 group-hover:opacity-50"></div>
-                  </div>
-                  <span className="text-gray-900 text-sm md:text-base">
-                    Adipiscing elit sed do eiusmod tempor
-                  </span>
-                </label> */}
 
                 {/* Buttons */}
                 <div className="flex flex-col md:flex-row gap-2 md:gap-3 md:justify-end">
@@ -254,12 +458,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* <div className="absolute bottom-10 animate-bounce">
-          <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div> */}
       </section>
 
       {/* Comparison Grid */}
@@ -355,21 +553,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-xl mx-auto px-2 mb-4">
-              The models can't value the <strong>benefit to the network</strong>, they can only measure <strong>scarcity</strong> — views, clicks, subscriptions and likes
-            </p> */}
- 
-            {/* <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-xl mx-auto px-2 mb-6">
-              What benefits individual companies often <strong>damages</strong> the shared networks we all rely on
-            </p> */}
-
             <p className="text-lg md:text-2xl lg:text-3xl text-gray-600 max-w-xl mx-auto px-2 mb-4">
               <strong>To fix the digital economy, we have to fix the incentives shaping it</strong>
             </p>
-
-            {/* <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2">
-              But these models don't just underperform — they also spark crises across the system. As technology accelerates, these crises compound, threatening to spiral into societal collapse.
-            </p> */}
           </div>
 
         </div>
@@ -383,17 +569,6 @@ export default function Home() {
           background: 'linear-gradient(-60deg, #660000dd 0%, #660000dd 10%, #001445dd 100%)'
         }}
       >
-        {/* Background Image with Blur */}
-        {/* <div className="absolute inset-0">
-          <Image 
-            src="/images/nodes.png"
-            alt="Network nodes background"
-            fill
-            className="object-cover opacity-50"
-            style={{ filter: 'blur(6px)' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-800/70 to-gray-900/70"></div>
-        </div> */}
         
         <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           {/* Header */}
@@ -523,12 +698,6 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  Ullamco laboris nisi
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
-                  Ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit voluptate velit esse cillum dolore.
-                </p> */}
               </div>
 
               {/* Card 2 */}
@@ -578,12 +747,6 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  Fugiat nulla pariatur
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
-                  Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p> */}
               </div>
 
               {/* Card 3 */}
@@ -633,12 +796,6 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  Fugiat nulla pariatur
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
-                  Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p> */}
               </div>
 
               {/* Card 4 */}
@@ -682,12 +839,6 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  Sed ut perspiciatis
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
-                  Unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque.
-                </p> */}
               </div>
 
               {/* Card 5 */}
@@ -739,12 +890,6 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  Ipsa quae ab illo
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
-                  Inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam voluptatem.
-                </p> */}
               </div>
 
               {/* Card 6 */}
@@ -794,29 +939,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  Ipsa quae ab illo
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
-                  Inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam voluptatem.
-                </p> */}
               </div>
-
-
-              {/* Card 5 */}
-                {/* <div className="flex-shrink-0 w-64 md:w-80 snap-start animate-on-scroll" style={{ animationDelay: '0.4s' }}> */}
-                {/* <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-4">
-                  <div className="bg-gradient-to-br from-indigo-400 to-purple-600 h-80 flex items-center justify-center">
-                    <div className="text-white text-7xl">✨</div>
-                  </div>
-                </div> */}
-                {/* <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  Quia voluptas sit
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
-                  Aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                </p> */}
-              {/* </div> */}
             </div>
 
             {/* Right Navigation Button (Desktop) */}
@@ -933,17 +1056,7 @@ export default function Home() {
 
 
           {/* B2N Content */}
-          <div className="max-w-4xl mx-auto px-4 md:px-6 mb-16 md:mb-24 animate-on-scroll">
-            {/* <p className="text-base md:text-xl lg:text-2xl text-gray-900 leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-10">
-              To reward companies for improving the network, the network needs to be able to recognize and reward the value created for it.
-            </p>
-
-            <p className="text-base md:text-xl lg:text-2xl text-gray-900 leading-relaxed md:!leading-[1.5] font-bold md:font-medium mb-8">
-              A Business-to-Network economy does this by allowing the network to act as a cohesive economic entity — one that can:
-            </p> */}
-
-            {/* <div className="space-y-10 mb-10"> */}
-              
+          <div className="max-w-4xl mx-auto px-4 md:px-6 mb-16 md:mb-24 animate-on-scroll">            
               {/* CTA Section */}
               <div className="mt-6 text-center">
                 <p className="text-lg md:text-xl lg:text-2xl text-gray-100 mb-4">
@@ -998,47 +1111,33 @@ export default function Home() {
             <p className="text-base md:text-2xl lg:text-3xl text-gray-900 leading-relaxed md:!leading-[1.5] text-gray-600 max-w-[30rem] mx-auto px-0 mb-2">
               Subscrible to the <strong><em>New Economic Revolution</em></strong> on Substack
             </p>
-            
-
-
-            {/* <p className="text-lg md:text-2xl lg:text-3xl text-gray-600 max-w-xl mx-auto px-2 mb-4">
-              <strong>Join The New Economic Revolution</strong>
-            </p> */}
-
-            {/* <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2">
-              But these models don't just underperform — they also spark crises across the system. As technology accelerates, these crises compound, threatening to spiral into societal collapse.
-            </p> */}
           </div>
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
         <div className="max-w-[45rem] mx-auto px-4 md:px-6 text-center">
           <form 
-            action="https://abundances.substack.com/api/v1/free" 
-            method="post"
-            target="_blank"
-            rel="noopener noreferrer"
+            onSubmit={handleSection6Submit}
             className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center"
           >
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Type your email..." 
-              required
-              className="flex-1 px-4 py-3 md:px-6 md:py-5 text-base md:text-lg border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-            />
+            <div className="flex-1 flex flex-col relative">
+              <input 
+                type="email" 
+                name="email" 
+                value={section6Email}
+                onChange={(e) => {
+                  setSection6Email(e.target.value)
+                  if (section6EmailError) setSection6EmailError('')
+                }}
+                placeholder="Type your email..." 
+                required
+                className={`flex-1 px-4 py-3 md:px-6 md:py-5 text-base md:text-lg border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent ${
+                  section6EmailError ? 'border-red-500' : 'border-gray-500'
+                }`}
+              />
+              {section6EmailError && (
+                <p className="text-red-500 text-sm mt-1 text-left sm:absolute sm:top-full sm:left-0 w-full">{section6EmailError}</p>
+              )}
+            </div>
             <button 
               type="submit"
               className="px-6 py-3 md:px-9 md:py-5 text-lg md:text-2xl bg-red-800 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center justify-center gap-[12px]"
@@ -1136,6 +1235,41 @@ export default function Home() {
           </p>
         </div>
       </footer> */}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 md:p-8 relative">
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+              aria-label="Close modal"
+            >
+              <IoClose className="w-6 h-6" />
+            </button>
+            
+            <div className="text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                Subscribed successfully
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Share on Farcaster
+              </p>
+              
+              <button
+                onClick={() => {
+                  shareCast()
+                  setShowSuccessModal(false)
+                }}
+                className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                <IoLinkOutline className="w-5 h-5" />
+                Share on Farcaster
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   )
