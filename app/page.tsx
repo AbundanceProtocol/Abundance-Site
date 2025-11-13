@@ -212,6 +212,7 @@ export default function Home() {
         const refNumber = Number(refParam)
         if (!isNaN(refNumber) && refNumber > 0) {
           setRef(refNumber)
+          console.log('ref', refNumber)
         }
       }
     }
