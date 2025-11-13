@@ -200,7 +200,6 @@ export default function Home() {
     }
   };
 
-
   useEffect(() => {
     (async () => {
       const mod = await import("@farcaster/miniapp-sdk");
@@ -675,14 +674,12 @@ export default function Home() {
                     <div className="absolute inset-0 flex flex-col">
                       {/* Top Side - Current Economy */}
                       <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
-                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Business</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Platforms sell attention. Algorithms optimize for engagement — even when it drives outrage, addiction, and polarization</p>
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
                       <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(0deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
-                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Platforms earn by improving the quality and usefulness of content distribution. The better they serve the network's interests, the more they profit.</p>
                       </div>
@@ -724,14 +721,12 @@ export default function Home() {
                     <div className="absolute inset-0 flex flex-col">
                       {/* Top Side - Current Economy */}
                       <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
-                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">B2B or B2C</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Media profits from clicks, ratings, and audience retention. Incentives favor sensationalism and reinforcing bias</p>
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
                       <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(180deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
-                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Media earns by providing accurate, balanced reporting that improves collective understanding. Reward is tied to network-wide informational value</p>
                       </div>
@@ -773,14 +768,12 @@ export default function Home() {
                     <div className="absolute inset-0 flex flex-col">
                       {/* Top Side - Current Economy */}
                       <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
-                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Consumer</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">A.I. profits from subscriptions and usage. Profit doesn’t depend on whether the technology benefits or harms society</p>
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
                       <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(60deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
-                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">A.I. is open and contributive. Developers and data providers are rewarded based on measurable positive impact. Network well-being becomes the core performance metric</p>
                       </div>
@@ -816,14 +809,12 @@ export default function Home() {
                     <div className="absolute inset-0 flex flex-col">
                       {/* Top Side - Current Economy */}
                       <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
-                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Business</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Innovators profit by owning and restricting access to ideas. Value comes from monopoly pricing — only those who can pay benefit</p>
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
                       <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(90deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
-                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Innovators are rewarded based on the measured impact they create across the network. Everyone has access — maximizing adoption, benefit, and further innovation</p>
                       </div>
@@ -865,7 +856,6 @@ export default function Home() {
                     <div className="absolute inset-0 flex flex-col">
                       {/* Top Side - Current Economy */}
                       <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
-                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">None</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Fundamental research has no sustainable business model.
                         Discoveries often can’t be sold or patented, so science depends on grants, donations, and short-term funding cycles — limiting progress</p>
@@ -873,7 +863,6 @@ export default function Home() {
 
                       {/* Bottom Side - Abundance Economy */}
                       <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(120deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
-                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Research is rewarded based on benefit for the network — including downstream applications and derived innovations.
                         Breakthroughs that advance the network generate ongoing reward for contributors.</p>
@@ -916,14 +905,12 @@ export default function Home() {
                     <div className="absolute inset-0 flex flex-col">
                       {/* Top Side - Current Economy */}
                       <div className="h-1/2 bg-gray-100 border-b border-gray-900 flex flex-col items-center justify-center p-6 pt-16 pb-16">
-                        {/* <p className="text-xs font-bold text-gray-600 mb-2 text-center">CURRENT ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Consumer</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Research is profitable only when it leads to a marketable product. Value is captured through patents and monopoly pricing — which increases costs and limits access.</p>
                       </div>
 
                       {/* Bottom Side - Abundance Economy */}
                       <div className="h-1/2 flex flex-col items-center justify-center p-6 pt-16 pb-12" style={{ background: 'linear-gradient(150deg, #ffbbbb 0%, #ffbbbb 2%, #88ccff 100%)' }}>
-                        {/* <p className="text-xs font-bold text-gray-900 mb-2 text-center">ABUNDANCE ECONOMY</p> */}
                         <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 text-center">Business-to-Network</h4>
                         <p className="text-sm md:text-base text-gray-900 text-center">Research is rewarded based on health impact across the network, regardless of whether it produces a consumer product. Knowledge is open for others to build on, accelerating medical progress</p>
                       </div>
@@ -1081,10 +1068,7 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-            {/* </div> */}
           </div>
-
-
         </div>
       </section>
 
