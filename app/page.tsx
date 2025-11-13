@@ -204,53 +204,18 @@ export default function Home() {
   };
 
   useEffect(() => {
-    (async () => {
-      // Try to get ref from both window.location and SDK context
-      let refParam: string | null = null;
-      
-      // First try window.location (for regular browser access)
-      if (typeof window !== 'undefined') {
-        const urlParams = new URLSearchParams(window.location.search)
-        refParam = urlParams.get('ref')
-      }
-      
-      // If not found and we're in a miniapp, try SDK context
-      if (!refParam) {
-        try {
-          const mod = await import("@farcaster/miniapp-sdk");
-          const sdk = mod.sdk;
-          const isMiniApp: boolean = await sdk.isInMiniApp();
-          
-          if (isMiniApp) {
-            const context = await sdk.context;
-            // Check if context has URL or query params
-            const contextUrl = (context as any)?.url || (context as any)?.initialUrl;
-            if (contextUrl) {
-              try {
-                const url = new URL(contextUrl);
-                refParam = url.searchParams.get('ref');
-              } catch (e) {
-                // URL parsing failed, try as string
-                const match = contextUrl.match(/[?&]ref=(\d+)/);
-                if (match) {
-                  refParam = match[1];
-                }
-              }
-            }
-          }
-        } catch (e) {
-          console.warn('Error getting ref from SDK context:', e);
-        }
-      }
-      
-      console.log('ref param found:', refParam);
+    // Read ref query parameter from URL
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      const refParam = urlParams.get('ref')
       if (refParam) {
         const refNumber = Number(refParam)
         if (!isNaN(refNumber) && refNumber > 0) {
           setRef(refNumber)
+          console.log('ref', refNumber)
         }
       }
-    })();
+    }
   }, [])
 
   useEffect(() => {
